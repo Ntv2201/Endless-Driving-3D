@@ -4,7 +4,7 @@ using UnityEngine;
 public class EndlessLevelHandler : MonoBehaviour
 {
     [SerializeField] GameObject[] sectionPrefabs;
-    [SerializeField] GameObject[] sectionPool = new GameObject[20];
+    [SerializeField] GameObject[] sectionsPool = new GameObject[20];
     [SerializeField] GameObject[] sectionsToRender = new GameObject[10];
     private Transform playerCarTransform;
     WaitForSeconds waitFor100ms = new WaitForSeconds(0.1f); 
@@ -26,27 +26,28 @@ public class EndlessLevelHandler : MonoBehaviour
     private void GenerateMap()
     {
         int prefabIndex = 0;
-
-        for(int i = 0; i < sectionPool.Length; i++)
+        // creating a pool for our endless section
+        for(int i = 0; i < sectionsPool.Length; i++)
         {
-            sectionPool[i] = Instantiate(sectionPrefabs[prefabIndex]);
-            sectionPool[i].SetActive(false);
+            sectionsPool[i] = Instantiate(sectionPrefabs[prefabIndex]);
+            sectionsPool[i].SetActive(false);
 
             prefabIndex++;
-
+            // loop the prfab index if we run ot of prefabs
             if(prefabIndex > sectionPrefabs.Length - 1)
             {
                 prefabIndex = 0;
             }
         }
 
+        // add the first section to the road
         for(int i = 0; i < sectionsToRender.Length; i++)
         {
             // get a random section
             GameObject randomSection = GetRandomSectionFromPool();
             
             // move it into position and active it
-            randomSection.transform.position = new Vector3(sectionPool[i].transform.position.x, 0, i * sectionLength);
+            randomSection.transform.position = new Vector3(sectionsPool[i].transform.position.x, 0, i * sectionLength);
             randomSection.SetActive(true);
 
             // set the section in the array
@@ -91,14 +92,14 @@ public class EndlessLevelHandler : MonoBehaviour
     private GameObject GetRandomSectionFromPool()
     {
         // pick a random index that is available
-        int randomIndex = Random.Range(0, sectionPool.Length);
+        int randomIndex = Random.Range(0, sectionsPool.Length);
 
         bool isNewSectionFound = false;
 
         while (!isNewSectionFound)
         {
             // check if the section is not set active, in that case we've found a section
-            if (!sectionPool[randomIndex].activeInHierarchy)
+            if (!sectionsPool[randomIndex].activeInHierarchy)
             {
                 isNewSectionFound = true;
             }
@@ -108,14 +109,14 @@ public class EndlessLevelHandler : MonoBehaviour
                 randomIndex++;
 
                 // ensure that we loop around if we reach the end of the array
-                if(randomIndex > sectionPool.Length - 1)
+                if(randomIndex > sectionsPool.Length - 1)
                 {
                     randomIndex = 0;
                 }
             }
         }
 
-        return sectionPool[randomIndex];
+        return sectionsPool[randomIndex];
     }
 
 }

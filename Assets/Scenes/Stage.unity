@@ -394,8 +394,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8994fd48712268e44802ecd66842de32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndlessLevelHandler
-  sectionPrefabs: []
-  sectionPool:
+  sectionPrefabs:
+  - {fileID: 8071082659912574826, guid: d31ddd11a75572f48b0ab21be3189d74, type: 3}
+  sectionsPool:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
