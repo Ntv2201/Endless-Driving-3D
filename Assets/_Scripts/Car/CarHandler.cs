@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CarHandler : MonoBehaviour
@@ -12,11 +13,18 @@ public class CarHandler : MonoBehaviour
     [SerializeField] float steerPower = 5;
     [SerializeField] float maxSteerVelocity = 2;
     private Rigidbody rb;
+    [SerializeField] private MeshRenderer carMeshRenderer;
     private Vector2 input = Vector2.zero;
+
+    // emissive property 
+    int _EmissionColor = Shader.PropertyToID("_EmissionColor");
+    Color emissiveColor = Color.white;
+    float emissiveColorMultiplier = 0f;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        
     }
 
     public void SetInput(Vector2 inputVector)
@@ -30,6 +38,8 @@ public class CarHandler : MonoBehaviour
     {
         // Rotate car model when turning
         gameModel.transform.rotation = Quaternion.Euler(0, rb.linearVelocity.x * 5, 0);
+
+        ControlLightWhenBrake();
 
     }
 
@@ -99,5 +109,19 @@ public class CarHandler : MonoBehaviour
         }
     }
 
+    private void ControlLightWhenBrake()
+    {
+        if(carMeshRenderer != null)
+        {
+            float targetColorMultiplier = 0f;
+
+            if(input.y < 0)
+            {
+                targetColorMultiplier = 7f;
+            }
+            emissiveColorMultiplier = Mathf.Lerp(emissiveColorMultiplier, targetColorMultiplier, Time.deltaTime * 4);
+            carMeshRenderer.material.SetColor(_EmissionColor, emissiveColor * emissiveColorMultiplier);
+        }
+    }
 
 }

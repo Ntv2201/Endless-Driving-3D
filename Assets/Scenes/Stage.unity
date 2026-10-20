@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2a863c4840efbc6448f585c2785135c0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 475165ae2595ba541b82d6a8b05b1995, type: 2}
     - target: {fileID: 919132149155446097, guid: 2a863c4840efbc6448f585c2785135c0, type: 3}
       propertyPath: m_Name
       value: car_sedan
@@ -211,6 +215,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5996507713573885615, guid: 2a863c4840efbc6448f585c2785135c0, type: 3}
+--- !u!23 &129060188 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 2a863c4840efbc6448f585c2785135c0, type: 3}
+  m_PrefabInstance: {fileID: 129060184}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +281,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 300
   field of view: 55
   orthographic: 0
   orthographic size: 5
@@ -463,10 +472,10 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.5
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -647,6 +656,7 @@ MonoBehaviour:
   brakePower: 15
   steerPower: 5
   maxSteerVelocity: 2
+  carMeshRenderer: {fileID: 129060188}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +753,7 @@ MonoBehaviour:
     FieldOfView: 55
     OrthographicSize: 5
     NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FarClipPlane: 300
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
